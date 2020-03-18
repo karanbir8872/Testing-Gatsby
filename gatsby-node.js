@@ -1,10 +1,15 @@
 exports.createPages = ({ actions: { createPage } }) => {
-  createPage({
-    path: "/with-context/",
-    component: require.resolve("./src/templates/with-context.js"),
-    context: {
-      title: "We Don’t Need No Stinkin’ GraphQL!",
-      content: "<p>This is page content.</p><p>No GraphQL required!</p>",
-    },
+  const products = require("./products.json")
+  products.forEach(producted => {
+    createPage({
+      path: `/product/${producted.slug}/`,
+      component: require.resolve("./src/templates/product.js"),
+      context: {
+        title: producted.title,
+        description: producted.description,
+        image: producted.image,
+        price: producted.price,
+      },
+    })
   })
 }
